@@ -9,7 +9,6 @@
 //  swiftlint:disable force_unwrapping
 
 import Foundation
-import XCTest
 
 /// A Mock which can be used for mocking data requests with the `Mocker` by calling `Mocker.register(...)`.
 public struct Mock: Equatable {
@@ -108,11 +107,8 @@ public struct Mock: Equatable {
     /// The callback which will be executed everytime this `Mock` was started. Can be used within unit tests for validating that a request has been started. The callback must be set before calling `register`.
     public var onRequest: OnRequest?
 
-    /// Can only be set internally as it's used by the `expectationForRequestingMock(_:)` method.
-    var onRequestExpectation: XCTestExpectation?
-
-    /// Can only be set internally as it's used by the `expectationForCompletingMock(_:)` method.
-    var onCompletedExpectation: XCTestExpectation?
+    /// A dictionary of information that can be provided by developers to support their own unique use cases.
+    public var userInfo: [String: Any] = [:]
 
     private init(url: URL? = nil, ignoreQuery: Bool = false, cacheStoragePolicy: URLCache.StoragePolicy = .notAllowed, dataType: DataType, statusCode: Int, data: [HTTPMethod: Data], requestError: Error? = nil, additionalHeaders: [String: String] = [:], fileExtensions: [String]? = nil) {
         self.urlToMock = url
